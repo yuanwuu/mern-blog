@@ -1,5 +1,7 @@
 import { useEffect, useState } from 'react'
 import {useLocation} from 'react-router-dom'
+import DashSidebar from '../components/DashSidebar'
+import DashProfile from '../components/DashProfile'
 
 const Dashboard = () => {
   const location = useLocation()
@@ -8,12 +10,19 @@ const Dashboard = () => {
   useEffect(()=>{
     const urlParams = new URLSearchParams(location.search)
     const tabFromUrl = urlParams.get('tab')
-    console.log(tabFromUrl)
+    if (tabFromUrl) {
+      setTab(tabFromUrl)
+    }
   },[location.search])
 
   return (
-    <div id='dashboard'>
-      Dashboard
+    <div className='min-h-screen flex flex-col md:flex-row'>
+      <div id="sidebar" className='md:w-56'>
+        <DashSidebar />
+      </div>
+      <div >
+        {tab === 'profile' && <DashProfile />}
+      </div>
     </div>
   )
 }
