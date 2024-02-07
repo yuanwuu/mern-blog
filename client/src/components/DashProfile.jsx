@@ -89,9 +89,7 @@ const DashProfile = () => {
     const handleChange = (e) =>{
         setFormData({...formData, [e.target.id]: e.target.value})
     }
-    // console.log(formData,
-    //     `/api/user/update/${currentUser._id}`)
-
+   
     const handleSubmit = async (e) =>{
         e.preventDefault()
         setUpdateUserError(null)
