@@ -4,7 +4,7 @@ import {FaMoon,FaSun} from 'react-icons/fa'
 import {Link,useLocation} from 'react-router-dom'
 import {useSelector,useDispatch} from 'react-redux'
 import { toggleTheme } from '../redux/theme/themeSlice'
-
+import {signoutSuccess} from '../redux/user/userSlice'
 
 const Header = () => {
   // highlight the active link
@@ -12,6 +12,22 @@ const Header = () => {
   const dispatch = useDispatch()
   const {currentUser} = useSelector(state => state.user)
   const {theme} = useSelector((state)=>state.theme)
+
+  const handleSignout = async() =>{
+    try {
+       const res = await fetch('/api/user/signout',{
+        method:'POST'
+       })
+       const data = await res.json()
+       if(!res.ok){
+        console.log(data.messge)
+       } else {
+            dispatch(signoutSuccess())
+       }
+    } catch (error) {
+        console.log(error.messge)
+    }
+}
 
   return (
     <Navbar className='border-b-2'>
@@ -53,7 +69,7 @@ const Header = () => {
                   <Dropdown.Item>Profile</Dropdown.Item>
                 </Link>
               <Dropdown.Divider/>
-              <Dropdown.Item>Sign out</Dropdown.Item>
+              <Dropdown.Item onClick={()=>dispatch(handleSignout())}>Sign out</Dropdown.Item>
             </Dropdown>
           )
           :(
