@@ -10,3 +10,10 @@ Redux Persist:
 
 Firebase:
 - 
+
+admin user login
+{
+  "username":"adminUser",
+  "email":"adminUser@gmail.com",
+  "password":"userAdmin"
+}
