@@ -1,6 +1,7 @@
 import { errorHandler } from "../utils/error.js"
 import Comment from '../models/comment.model.js'
 
+
 export const createComment = async(req,res,next) =>{
     try {
         const {content,postId, userId} = req.body
@@ -76,6 +77,24 @@ export const editComment = async(req,res,next) =>{
             {new:true}
         )
         res.status(200).json(editComment)
+    } catch (error) {
+        next(error)
+    }
+}
+
+export const deleteComment = async (req,res,next) =>{
+    try {
+        const comment = await Comment.findById(req.params.commentId)
+        if(!comment){
+            return next(errorHandler(404, 'comment not found'))
+        }
+        if(comment.userId !== req.user.id && !req.user.isAdmin){
+            if(!comment){
+                return next(errorHandler(404, 'unauthorized to delete'))
+            }
+        }
+        await Comment.findByIdAndDelete(req.params.commentId)
+        res.status(200).json('Comment has been deleted')
     } catch (error) {
         next(error)
     }
