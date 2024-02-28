@@ -46,7 +46,7 @@ const handleSignout = async() =>{
         <Sidebar.Items>
             <Sidebar.ItemGroup className='flex flex-col gap-1'>
                 <Link to='/dashboard?tab=dash'>
-                    <Sidebar.Item active={tab === 'dash'} icon={HiChartPie} label={currentUser.isAdmin || !tab} labelColor = 'dark' as='div'>
+                    <Sidebar.Item active={tab === 'dash' || !tab} icon={HiChartPie}  as='div'>
                         Dashboard
                     </Sidebar.Item>
                 </Link>
